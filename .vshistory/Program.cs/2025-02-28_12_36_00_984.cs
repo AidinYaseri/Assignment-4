@@ -22,12 +22,8 @@
             Console.WriteLine(Validate(oneULong, twoULong,twoByte));
             string aString = "      HELLO   ";
             Console.WriteLine(aString);
-            aString = aString.Trim();
+            aString.Trim();
             Console.WriteLine(aString);
-
-            string replace = "CS, Comp Sci";
-            replace = replace.Replace("CS", "@");
-            Console.WriteLine(replace);
 
         }
         static bool Validate (int input, int number)

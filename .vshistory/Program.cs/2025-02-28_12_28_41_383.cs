@@ -4,12 +4,8 @@
     {
         static void Main(string[] args)
         {
-            byte oneByte = 2;
-            byte twoByte = 3;
-            ulong oneULong = 123;
-            ulong twoULong = 321;
-
-                
+            byte Onebye = 2
+                byte Onebye = 2
             Console.WriteLine(Validate(3,3));
             Console.WriteLine(Validate(4.33,4.65));
             Console.WriteLine(Validate("Hello", "Hello"));
@@ -18,17 +14,8 @@
             Console.WriteLine(Validate(2, 5, 3.5));
             Console.WriteLine(Validate(2, 4, 3.4));
             Console.WriteLine(Validate(3, 4.5f));
-            Console.WriteLine(Validate(oneByte, twoByte));
-            Console.WriteLine(Validate(oneULong, twoULong,twoByte));
-            string aString = "      HELLO   ";
-            Console.WriteLine(aString);
-            aString = aString.Trim();
-            Console.WriteLine(aString);
-
-            string replace = "CS, Comp Sci";
-            replace = replace.Replace("CS", "@");
-            Console.WriteLine(replace);
-
+            Console.WriteLine(Validate(, ));
+            Console.WriteLine(Validate(3, 4.5f));
         }
         static bool Validate (int input, int number)
         {

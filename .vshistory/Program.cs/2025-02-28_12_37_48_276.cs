@@ -23,11 +23,7 @@
             string aString = "      HELLO   ";
             Console.WriteLine(aString);
             aString = aString.Trim();
-            Console.WriteLine(aString);
-
-            string replace = "CS, Comp Sci";
-            replace = replace.Replace("CS", "@");
-            Console.WriteLine(replace);
+            Console.WriteLine(aString.Trim());
 
         }
         static bool Validate (int input, int number)

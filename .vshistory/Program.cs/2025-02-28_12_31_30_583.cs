@@ -19,16 +19,7 @@
             Console.WriteLine(Validate(2, 4, 3.4));
             Console.WriteLine(Validate(3, 4.5f));
             Console.WriteLine(Validate(oneByte, twoByte));
-            Console.WriteLine(Validate(oneULong, twoULong,twoByte));
-            string aString = "      HELLO   ";
-            Console.WriteLine(aString);
-            aString = aString.Trim();
-            Console.WriteLine(aString);
-
-            string replace = "CS, Comp Sci";
-            replace = replace.Replace("CS", "@");
-            Console.WriteLine(replace);
-
+            Console.WriteLine(Validate(3, 4.5f));
         }
         static bool Validate (int input, int number)
         {
