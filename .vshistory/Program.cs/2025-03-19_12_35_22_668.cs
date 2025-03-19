@@ -26,7 +26,6 @@
             List<playerInformation> players = new List<playerInformation>();
             PrintHeaderAndMenu();
 
-
         }
         static void PrintHeaderAndMenu()
         {
@@ -36,49 +35,10 @@
             Console.WriteLine("      ************************************");
             Console.WriteLine();
             Console.WriteLine("Select one of the options below:");
-            Console.WriteLine();
             Console.WriteLine("1. Add a winner to the leaderboard");
             Console.WriteLine("2. Delete an entry from the leaderboard");
-            Console.WriteLine("3. Save the leaderboard to a file");
-            Console.WriteLine("4. Load the leaderboard from a file");
-            Console.WriteLine("5. Clear the leaderboard");
-            Console.WriteLine("6. Quit");
-            int userChoice = ValideInput();
-            switch(userChoice)
-            {
-                case 1:
-                    break;
-
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                case 5:
-                    break;
-
-                case 6:
-                    break;
-
-                
-            }
+            Console.WriteLine("");
         }
-
-        static int ValideInput()
-        {
-            int userInput;
-            while (!int.TryParse(Console.ReadLine(), out userInput))
-            {
-                Console.WriteLine("Please input");
-            }
-            return userInput;
-        }
-
-        
         
 
 

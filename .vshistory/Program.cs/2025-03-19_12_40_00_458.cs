@@ -43,29 +43,7 @@
             Console.WriteLine("4. Load the leaderboard from a file");
             Console.WriteLine("5. Clear the leaderboard");
             Console.WriteLine("6. Quit");
-            int userChoice = ValideInput();
-            switch(userChoice)
-            {
-                case 1:
-                    break;
 
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                case 5:
-                    break;
-
-                case 6:
-                    break;
-
-                
-            }
         }
 
         static int ValideInput()
@@ -77,8 +55,6 @@
             }
             return userInput;
         }
-
-        
         
 
 
