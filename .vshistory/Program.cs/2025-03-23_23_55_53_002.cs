@@ -317,29 +317,29 @@ namespace Assignment_4
             }
             else
             {
-                Console.WriteLine("=====================================================================================");
-                Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-22} |", "RANK", "NAME", "SCORE", "AGE", "SPORT", "ENDING TIME");
-                Console.WriteLine("=====================================================================================");
+                Console.WriteLine("===============================================================");
+                Console.WriteLine("|  RANK  |  NAME  |  SCORE  |  AGE  |  SPORT  |  ENDING TIME  |");
+                Console.WriteLine("===============================================================");
                 int rank = 1;
                 foreach (playerInformation winner in winnerList)
                 {
                     if (rank == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-20} |", rank, winner.playerName, winner.playerScore, winner.playerAge, winner.sport, winner.endingTime);
+                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
-
-                        Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-20} |", rank, winner.playerName, winner.playerScore, winner.playerAge, winner.sport, winner.endingTime);
+                        
+                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
                         
                     }
 
                 }
-                Console.WriteLine("=====================================================================================");
+                Console.WriteLine("===============================================================");
             }
         }
         static void ClearLeaderBoard(List<playerInformation> winnerList)

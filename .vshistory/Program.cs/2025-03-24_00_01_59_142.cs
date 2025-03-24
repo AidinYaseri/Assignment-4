@@ -318,7 +318,7 @@ namespace Assignment_4
             else
             {
                 Console.WriteLine("=====================================================================================");
-                Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-22} |", "RANK", "NAME", "SCORE", "AGE", "SPORT", "ENDING TIME");
+                Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-20} |", "RANK", "NAME", "SCORE", "AGE", "SPORT", "ENDING TIME");
                 Console.WriteLine("=====================================================================================");
                 int rank = 1;
                 foreach (playerInformation winner in winnerList)

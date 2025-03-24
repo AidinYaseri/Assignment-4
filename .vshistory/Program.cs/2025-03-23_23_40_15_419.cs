@@ -219,7 +219,7 @@ namespace Assignment_4
         static void SavingLeaderBoard(List<playerInformation> winnerList)
         {
             DisplayLeaderBoard(winnerList);
-            Console.WriteLine("please enter the file name you wish to save (do not include file extension)");
+            Console.WriteLine("please enter the file name you wish to save");
             string fileName = Console.ReadLine();
             StreamWriter writer = null;
             try
@@ -229,7 +229,6 @@ namespace Assignment_4
                 if (winnerList.Count == 0)
                 {
                     Console.WriteLine("The LeaderBoard is empty");
-                    Thread.Sleep(1000);
                     return;
                 }
                 else
@@ -247,7 +246,6 @@ namespace Assignment_4
             catch (Exception ex)
             {
                 Console.WriteLine($"ERROR: {ex.Message}");
-                Thread.Sleep(1000);
             }
             finally
             {
@@ -257,12 +255,20 @@ namespace Assignment_4
 
         static void LoadingLeaderBoard(List<playerInformation> winnerList)
         {
-            Console.WriteLine("Please enter the file name you wish to load (do not include file extension):");
-            string fileName = Console.ReadLine();
 
+            Console.WriteLine("please enter the file name you wish to load(do not include file extension)");
+            string fileName = Console.ReadLine();
+            if (!File.Exists($"../../../{fileName}.csv"))
+
+            {
+                 static void LoadingLeaderBoard(List<playerInformation> winnerList)
+        {
+
+            Console.WriteLine("please enter the file name you wish to load (do not include file extension)");
+            string fileName = Console.ReadLine();
             if (!File.Exists($"../../../{fileName}.csv"))
             {
-                Console.WriteLine($"File path: ../../../{fileName}.csv");
+                        Console.WriteLine($"../../../{fileName}.csv");
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
                 return;
@@ -273,12 +279,11 @@ namespace Assignment_4
                 try
                 {
                     reader = new StreamReader($"../../../{fileName}.csv", true);
-
+                    //ClearLeaderBoard(winnerList);
                     while (!reader.EndOfStream)
                     {
                         string line = reader.ReadLine();
                         string[] parts = line.Split(',');
-
                         if (parts.Length == 5)
                         {
                             playerInformation newWinner;
@@ -287,19 +292,62 @@ namespace Assignment_4
                             newWinner.playerAge = int.Parse(parts[2]);
                             newWinner.sport = parts[3];
                             newWinner.endingTime = DateTime.Parse(parts[4]);
-
                             InsertWinner(winnerList, newWinner);
+
+
                         }
                     }
-
                     Console.WriteLine($"Leaderboard loaded from {fileName}!");
-                    Thread.Sleep(1000);
                     DisplayLeaderBoard(winnerList);
                 }
+
+
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error loading leaderboard: {ex.Message}");
-                    Thread.Sleep(1000);
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
+        
+                Console.WriteLine("File not found");
+                Thread.Sleep(1000);
+                return;
+            }
+            else
+            {
+                StreamReader reader = null;
+                try
+                {
+                    reader = new StreamReader($"../../../{fileName}.csv", true);
+                    //ClearLeaderBoard(winnerList);
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        string[] parts = line.Split(',');
+                        if (parts.Length == 5)
+                        {
+                            playerInformation newWinner;
+                            newWinner.playerName = parts[0];
+                            newWinner.playerScore = int.Parse(parts[1]);
+                            newWinner.playerAge = int.Parse(parts[2]);
+                            newWinner.sport = parts[3];
+                            newWinner.endingTime = DateTime.Parse(parts[4]);
+                            InsertWinner(winnerList, newWinner);
+
+
+                        }
+                    }
+                    Console.WriteLine($"Leaderboard loaded from {fileName}!");
+                    DisplayLeaderBoard(winnerList);
+                }
+
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error loading leaderboard: {ex.Message}");
                 }
                 finally
                 {
@@ -307,7 +355,6 @@ namespace Assignment_4
                 }
             }
         }
-
         static void DisplayLeaderBoard(List<playerInformation> winnerList)
         {
             if (winnerList.Count == 0)
@@ -317,29 +364,29 @@ namespace Assignment_4
             }
             else
             {
-                Console.WriteLine("=====================================================================================");
-                Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-22} |", "RANK", "NAME", "SCORE", "AGE", "SPORT", "ENDING TIME");
-                Console.WriteLine("=====================================================================================");
+                Console.WriteLine("===============================================================");
+                Console.WriteLine("|  RANK  |  NAME  |  SCORE  |  AGE  |  SPORT  |  ENDING TIME  |");
+                Console.WriteLine("===============================================================");
                 int rank = 1;
                 foreach (playerInformation winner in winnerList)
                 {
                     if (rank == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-20} |", rank, winner.playerName, winner.playerScore, winner.playerAge, winner.sport, winner.endingTime);
+                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
-
-                        Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-20} |", rank, winner.playerName, winner.playerScore, winner.playerAge, winner.sport, winner.endingTime);
+                        
+                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
                         
                     }
 
                 }
-                Console.WriteLine("=====================================================================================");
+                Console.WriteLine("===============================================================");
             }
         }
         static void ClearLeaderBoard(List<playerInformation> winnerList)
@@ -350,22 +397,19 @@ namespace Assignment_4
             {
                 winnerList.Clear();
                 Console.WriteLine("Leaderboard has been cleared successfully!");
-                Thread.Sleep(1000);
                 DisplayLeaderBoard(winnerList);
             }
             else
             {
                 Console.WriteLine("Leaderboard clearing canceled.");
-                Thread.Sleep(1000);
             }
         }
         static List<playerInformation> AutoLoadLeaderBoard()
         {
-            string fileName = "leaderboard";
+            string fileName = "leaderboard.csv";
             if (!File.Exists($"../../../{fileName}.csv"))
             {
                 Console.WriteLine("No previous leaderboard found. Starting fresh.");
-                Thread.Sleep(1000);
                 return new List<playerInformation>();
             }
             StreamReader reader = null;
@@ -393,7 +437,6 @@ namespace Assignment_4
                     }
                 }
                 Console.WriteLine($"Leaderboard loaded from {fileName}!");
-                Thread.Sleep(1000);
                 return winnerList;
             }
 
@@ -401,7 +444,6 @@ namespace Assignment_4
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading leaderboard: {ex.Message}");
-                Thread.Sleep(1000);
                 return new List<playerInformation>();
             }
             finally
@@ -414,7 +456,7 @@ namespace Assignment_4
         }
         static void AutoSaveLeaderBoard(List<playerInformation> winnerList)
         {
-            string fileName = "leaderboard";
+            string fileName = "leaderboard.csv";
             StreamWriter writer = null;
             try
             {
@@ -423,7 +465,6 @@ namespace Assignment_4
                 if (winnerList.Count == 0)
                 {
                     Console.WriteLine("The LeaderBoard is empty");
-                    Thread.Sleep(1000);
                     return;
                 }
                 else
