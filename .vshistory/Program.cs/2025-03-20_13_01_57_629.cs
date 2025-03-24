@@ -25,13 +25,13 @@ namespace Assignment_4
         {
             bool changesSaved = false;
             string filename;
-            List<playerInformation> winnerList = new List<playerInformation>();
+            List<playerInformation> players = new List<playerInformation>();
             PrintHeaderAndMenu();
             int userChoice = ValideInput(1);
             switch (userChoice)
             {
                 case 1:
-                    AddWinner(winnerList);
+                    AddWinner(players);
                     break;
 
                 case 2:
@@ -48,25 +48,25 @@ namespace Assignment_4
 
                 case 6:
                     break;
-
+                    
 
 
             }
-            static void PrintHeaderAndMenu()
-            {
-                Console.WriteLine("      ************************************");
-                Console.WriteLine("Welcome to Programming 2 - Assignment 4 – Winter 2025");
-                Console.WriteLine("Created by Aidin Yaseri (2467917) on 2025-03-19");
-                Console.WriteLine("      ************************************");
-                Console.WriteLine();
-                Console.WriteLine("Select one of the options below:");
-                Console.WriteLine();
-                Console.WriteLine("1. Add a winner to the leaderboard");
-                Console.WriteLine("2. Delete an entry from the leaderboard");
-                Console.WriteLine("3. Save the leaderboard to a file");
-                Console.WriteLine("4. Load the leaderboard from a file");
-                Console.WriteLine("5. Clear the leaderboard");
-                Console.WriteLine("6. Quit");
+        static void PrintHeaderAndMenu()
+        {
+            Console.WriteLine("      ************************************");
+            Console.WriteLine("Welcome to Programming 2 - Assignment 4 – Winter 2025");
+            Console.WriteLine("Created by Aidin Yaseri (2467917) on 2025-03-19");
+            Console.WriteLine("      ************************************");
+            Console.WriteLine();
+            Console.WriteLine("Select one of the options below:");
+            Console.WriteLine();
+            Console.WriteLine("1. Add a winner to the leaderboard");
+            Console.WriteLine("2. Delete an entry from the leaderboard");
+            Console.WriteLine("3. Save the leaderboard to a file");
+            Console.WriteLine("4. Load the leaderboard from a file");
+            Console.WriteLine("5. Clear the leaderboard");
+            Console.WriteLine("6. Quit");
             }
         }
 
@@ -92,9 +92,9 @@ namespace Assignment_4
             } while (Regex.IsMatch(userInput, @"\d"));
             return userInput;
         }
+       
 
-
-        static void AddWinner(List<playerInformation> winnerList)
+        static void AddWinner(List<playerInformation> players)
         {
             int minScore = 0;
             int minAge = 0;
@@ -111,42 +111,33 @@ namespace Assignment_4
             newWinner.endingTime = DateTime.Parse(ValideInput());
             Console.WriteLine("Enter the sport of the winner");
             newWinner.sport = ValideInput();
-            InsertWinner(winnerList, newWinner);
-
-
-
-
-            static void InsertWinner(List<playerInformation> winnerList, playerInformation newWinner)
+            foreach(playerInformation winner in players)
             {
-                for (int index =0 ; index < winnerList.Count; index ++)
+                if (newWinner.playerName == winner.playerName)
                 {
-                    if (winnerList[index].playerName == newWinner.playerName)
+                   if(newWinner.playerScore > winner.playerScore)
                     {
-                        if (newWinner.playerScore > winnerList[index].playerScore)
+                        int newWinnerIndex = 0;
+                        players.Remove(winner);
+                        for (int index = 0; index < players.Count; index++)
                         {
-                            winnerList.RemoveAt(index);
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{newWinner.playerName}'s old score is greater then the new score, the old score will be kept ");
-                            return;
+                            if (players[index].playerScore <newWinner.playerScore)
+                            {
+                             newWinnerIndex = index;
+                            }
                         }
                     }
                 }
-                int insertIndex = 0;
-                while (insertIndex < winnerList.Count && winnerList[insertIndex].playerScore >= newWinner.playerScore)
-                {
-                    insertIndex++;
-                }
-                winnerList.Insert(insertIndex, newWinner);
-
             }
-
-
-
+            players.Add(newWinner);
+           
 
 
         }
-    }
+
+        
+        
+
+
+}
 }

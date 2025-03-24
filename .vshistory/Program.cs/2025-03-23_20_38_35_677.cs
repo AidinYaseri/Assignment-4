@@ -134,12 +134,6 @@ namespace Assignment_4
                         }
                     }
                 }
-                int insertIndex = 0;
-                while (insertIndex < winnerList.Count && winnerList[insertIndex].playerScore >= newWinner.playerScore)
-                {
-                    insertIndex++;
-                }
-                winnerList.Insert(insertIndex, newWinner);
 
             }
 

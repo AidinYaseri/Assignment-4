@@ -118,29 +118,44 @@ namespace Assignment_4
 
             static void InsertWinner(List<playerInformation> winnerList, playerInformation newWinner)
             {
-                for (int index =0 ; index < winnerList.Count; index ++)
+                foreach (playerInformation winner in winnerList)
                 {
-                    if (winnerList[index].playerName == newWinner.playerName)
+                    if (newWinner.playerName == winner.playerName)
                     {
-                        if (newWinner.playerScore > winnerList[index].playerScore)
+                        if (newWinner.playerScore > winner.playerScore)
                         {
-                            winnerList.RemoveAt(index);
-                            break;
+                            int newWinnerIndex = 0;
+                            winnerList.Remove(winner);
+                            for (int index = 0; index < winnerList.Count; index++)
+                            {
+                                if (winnerList[index].playerScore < newWinner.playerScore)
+                                {
+                                    newWinnerIndex = index;
+                                }
+                            }
+                            winnerList.Insert(newWinnerIndex, newWinner);
                         }
                         else
                         {
-                            Console.WriteLine($"{newWinner.playerName}'s old score is greater then the new score, the old score will be kept ");
-                            return;
+                            Console.WriteLine($"{newWinner.playerName}'s old score is greater then the new score, the old score would be kept.");
                         }
                     }
+                    else
+                    {
+                        int newWinnerIndex = 0;
+                        for (int index = 0; index < winnerList.Count; index++)
+                        {
+                            if (winnerList[index].playerScore < newWinner.playerScore)
+                            {
+                                if (winnerList[index].pla)
+                                newWinnerIndex = index;
+                            }
+                        }
+                        winnerList.Insert(newWinnerIndex, newWinner);
+                        break;
+                    }
                 }
-                int insertIndex = 0;
-                while (insertIndex < winnerList.Count && winnerList[insertIndex].playerScore >= newWinner.playerScore)
-                {
-                    insertIndex++;
-                }
-                winnerList.Insert(insertIndex, newWinner);
-
+                winnerList.Add(newWinner);
             }
 
 

@@ -120,27 +120,28 @@ namespace Assignment_4
             {
                 for (int index =0 ; index < winnerList.Count; index ++)
                 {
-                    if (winnerList[index].playerName == newWinner.playerName)
+                    if (winnerList[index])
+                }
+                    }
+                    else
                     {
-                        if (newWinner.playerScore > winnerList[index].playerScore)
+                        int newWinnerIndex = 0;
+                        for (int index = 0; index < winnerList.Count; index++)
                         {
-                            winnerList.RemoveAt(index);
-                            break;
+                            if (winnerList[index].playerScore < newWinner.playerScore)
+                            {
+                                if (winnerList[index].endingTime < newWinner.endingTime)
+                                {
+
+                                }
+                                newWinnerIndex = index;
+                            }
                         }
-                        else
-                        {
-                            Console.WriteLine($"{newWinner.playerName}'s old score is greater then the new score, the old score will be kept ");
-                            return;
-                        }
+                        winnerList.Insert(newWinnerIndex, newWinner);
+                        break;
                     }
                 }
-                int insertIndex = 0;
-                while (insertIndex < winnerList.Count && winnerList[insertIndex].playerScore >= newWinner.playerScore)
-                {
-                    insertIndex++;
-                }
-                winnerList.Insert(insertIndex, newWinner);
-
+                winnerList.Add(newWinner);
             }
 
 

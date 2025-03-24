@@ -139,7 +139,7 @@ namespace Assignment_4
                 {
                     insertIndex++;
                 }
-                winnerList.Insert(insertIndex, newWinner);
+
 
             }
 

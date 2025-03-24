@@ -134,13 +134,26 @@ namespace Assignment_4
                         }
                     }
                 }
-                int insertIndex = 0;
-                while (insertIndex < winnerList.Count && winnerList[insertIndex].playerScore >= newWinner.playerScore)
-                {
-                    insertIndex++;
-                }
-                winnerList.Insert(insertIndex, newWinner);
+                    }
+                    else
+                    {
+                        int newWinnerIndex = 0;
+                        for (int index = 0; index < winnerList.Count; index++)
+                        {
+                            if (winnerList[index].playerScore < newWinner.playerScore)
+                            {
+                                if (winnerList[index].endingTime < newWinner.endingTime)
+                                {
 
+                                }
+                                newWinnerIndex = index;
+                            }
+                        }
+                        winnerList.Insert(newWinnerIndex, newWinner);
+                        break;
+                    }
+                }
+                winnerList.Add(newWinner);
             }
 
 
