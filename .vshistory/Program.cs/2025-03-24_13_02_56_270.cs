@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using System.Text.RegularExpressions;
@@ -16,11 +15,7 @@ namespace Assignment_4
         * Relationship:    colleague
         * Date:            2025-03-24
         *
-        * Description: The goal of this program is to manage a leaderboard. 
-        * It allows users to add new winners, delete existing entries, save the leaderboard data to a file, 
-        * load data from a file, clear the leaderboard, and quit the application. The program 
-        * stores player information such as name, score, ending time, sport, and age. It also 
-        * automatically loads and saves the leaderboard upon starting and exiting.
+        * Description: The goal of this program is to do the * following… 
         */
 
         // Structure to store winners information
@@ -202,20 +197,18 @@ namespace Assignment_4
 
         }
 
-        // DeleteWinner function: Deletes a winner from the leaderboard based on the player's name
+        // DeleteWinner function: Handles deleting a winner from the leaderboard based on the player's name.
         static void DeleteWinner(List<playerInformation> winnerList)
         {
             Console.WriteLine("Please enter the name of the winner you wish to delete");
-            string userInput = ValideInput();// Gets the name of the winner to delete
+            string userInput = ValideInput();
             int playerIndex;
-            // Finds the winner with the given name through the leaderboard
             for (playerIndex = 0; playerIndex < winnerList.Count; playerIndex++)
             {
                 if (userInput == winnerList[playerIndex].playerName)
                 {
                     Console.WriteLine("Are you sure about this action? [y/n]");
 
-                    // Prompts the user for confirmation before deleting
                     string confirmation;
                     do
                     {
@@ -225,7 +218,6 @@ namespace Assignment_4
                             Console.WriteLine("Invalid input. Please enter [y/n]:");
                         }
                     } while (confirmation != "y" && confirmation != "n");
-                    // If the user confirms, the player is removed from the leaderboard
                     if (confirmation == "y")
                     {
                         winnerList.RemoveAt(playerIndex);
@@ -244,23 +236,19 @@ namespace Assignment_4
 
                 }
             }
-            Console.WriteLine("Winner has not been found");// Message if the player is not found
+            Console.WriteLine("Winner has not been found");
             Thread.Sleep(1000);
         }
-
-        // SavingLeaderBoard function: Saves the leaderboard data to a CSV file
         static void SavingLeaderBoard(List<playerInformation> winnerList)
         {
-            DisplayLeaderBoard(winnerList);// Displays the leaderboard before saving
+            DisplayLeaderBoard(winnerList);
             Console.WriteLine("please enter the file name you wish to save (do not include file extension)");
-            string fileName = Console.ReadLine(); // Gets the filename from the user
+            string fileName = Console.ReadLine();
             StreamWriter writer = null;
             try
             {
-                // Creates a StreamWriter to write to the specified file
                 writer = new StreamWriter($"../../../{fileName}.csv", true);
 
-                // Handles the case where the leaderboard is empty
                 if (winnerList.Count == 0)
                 {
                     Console.WriteLine("The LeaderBoard is empty");
@@ -269,10 +257,8 @@ namespace Assignment_4
                 }
                 else
                 {
-                    // Goes through the leaderboard and writes each player's information to a new line in the CSV file
                     foreach (playerInformation player in winnerList)
                     {
-                        // Formats the DateTime
                         string formattedDate = player.endingTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
                         writer.WriteLine($"{player.playerName},{player.playerScore},{player.playerAge}, {player.sport},{formattedDate},");
                     }
@@ -283,25 +269,20 @@ namespace Assignment_4
             }
             catch (Exception ex)
             {
-                // Handles potential exceptions during file writing
                 Console.WriteLine($"ERROR: {ex.Message}");
                 Thread.Sleep(1000);
             }
             finally
             {
-                // Ensures the StreamWriter is closed
                 writer.Close();
             }
         }
 
-        // LoadingLeaderBoard function: Loads leaderboard data from a CSV file
-
         static void LoadingLeaderBoard(List<playerInformation> winnerList)
         {
             Console.WriteLine("Please enter the file name you wish to load (do not include file extension):");
-            string fileName = Console.ReadLine();// Gets the filename from the user
+            string fileName = Console.ReadLine();
 
-            // Checks if the specified file exists
             if (!File.Exists($"../../../{fileName}.csv"))
             {
                 Console.WriteLine($"File path: ../../../{fileName}.csv");
@@ -314,49 +295,45 @@ namespace Assignment_4
                 StreamReader reader = null;
                 try
                 {
-                    // Creates a StreamReader to read from the specified file
                     reader = new StreamReader($"../../../{fileName}.csv", true);
-                    // Reads the file line by line until the end
+
                     while (!reader.EndOfStream)
                     {
-                        // Splits each line into individual data points
                         string line = reader.ReadLine();
                         string[] parts = line.Split(',');
 
-                        // Creates a new winner and populates it with the data from the file
+
                         playerInformation newWinner;
                         newWinner.playerName = parts[0];
                         newWinner.playerScore = int.Parse(parts[1]);
                         newWinner.playerAge = int.Parse(parts[2]);
                         newWinner.sport = parts[3];
                         newWinner.endingTime = DateTime.Parse(parts[4]);
-                        winnerList.Add(newWinner);// Adds the created winner to the leaderboard
+
+                        Console.WriteLine(newWinner);
+                        winnerList.Add(newWinner);
 
                     }
 
                     Console.WriteLine($"Leaderboard loaded from {fileName}!");
                     Thread.Sleep(1000);
-                    DisplayLeaderBoard(winnerList);// Displays the loaded leaderboard
+                    DisplayLeaderBoard(winnerList);
                     Thread.Sleep(1000);
                 }
                 catch (Exception ex)
                 {
-                    // Handles potential exceptions during file reading
                     Console.WriteLine($"Error loading leaderboard: {ex.Message}");
                     Thread.Sleep(1000);
                 }
                 finally
                 {
-                    // Ensures the StreamReader is closed
                     reader.Close();
                 }
             }
         }
 
-        // DisplayLeaderBoard function: Displays the leaderboard
         static void DisplayLeaderBoard(List<playerInformation> winnerList)
         {
-            // Handles the case where the leaderboard is empty
             if (winnerList.Count == 0)
             {
                 Console.WriteLine("The LeaderBoard is empty");
@@ -364,21 +341,18 @@ namespace Assignment_4
             }
             else
             {
-                // Prints the table header
                 Console.WriteLine("=====================================================================================");
                 Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-22} |", "RANK", "NAME", "SCORE", "AGE", "SPORT", "ENDING TIME");
                 Console.WriteLine("=====================================================================================");
                 int rank = 1;
-                // Goes through the leaderboard and prints each winner's information 
                 foreach (playerInformation winner in winnerList)
                 {
-                    // Highlights the top-ranked winner with a different color
                     if (rank == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine("| {0,-6} | {1,-10} | {2,-7} | {3,-5} | {4,-8} | {5,-20} |", rank, winner.playerName, winner.playerScore, winner.playerAge, winner.sport, winner.endingTime);
                         rank++;
-                        Console.ForegroundColor = ConsoleColor.White;// Resets the text color
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
@@ -389,16 +363,13 @@ namespace Assignment_4
                     }
 
                 }
-                Console.WriteLine("=====================================================================================");// Prints the table footer
+                Console.WriteLine("=====================================================================================");
             }
         }
-
-        // ClearLeaderBoard function: Clears all entries from the leaderboard
         static void ClearLeaderBoard(List<playerInformation> winnerList)
         {
             Console.WriteLine("Are you sure you want to clear the leaderboard? [y/n]");
-            string input = ValideInput().ToLower(); // Gets confirmation from the user
-            // If the user confirms, the leaderboard is cleared
+            string input = ValideInput().ToLower();
             if (input == "y")
             {
                 winnerList.Clear();
@@ -412,17 +383,14 @@ namespace Assignment_4
                 Thread.Sleep(1000);
             }
         }
-
-        // AutoLoadLeaderBoard function: Loads the leaderBoard from a default file when the program starts
         static List<playerInformation> AutoLoadLeaderBoard()
         {
             string fileName = "leaderboard";
-            // Checks if the leaderboard file exists
             if (!File.Exists($"../../../{fileName}.csv"))
             {
                 Console.WriteLine("No previous leaderboard found. Starting fresh.");
                 Thread.Sleep(1000);
-                return new List<playerInformation>(); // Return an empty list if the file doesn't exist
+                return new List<playerInformation>();
             }
             StreamReader reader = null;
             try
@@ -430,46 +398,43 @@ namespace Assignment_4
                 List<playerInformation> winnerList = new List<playerInformation>();
 
                 reader = new StreamReader($"../../../{fileName}.csv", true);
-                // Read the file line by line
+
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
-                    string[] parts = line.Split(',');// Splits the line by commas
-                    // Creates a new new winner and fills it with data from the file
+                    string[] parts = line.Split(',');
+
                     playerInformation newWinner;
                     newWinner.playerName = parts[0];
                     newWinner.playerScore = int.Parse(parts[1]);
                     newWinner.playerAge = int.Parse(parts[2]);
                     newWinner.sport = parts[3];
                     newWinner.endingTime = DateTime.Parse(parts[4]);
-                    winnerList.Add(newWinner);// Adds the winner to the list
+                    winnerList.Add(newWinner);
 
 
 
                 }
                 Console.WriteLine($"Leaderboard loaded from {fileName}!");
                 Thread.Sleep(1000);
-                return winnerList; // Returns the populated list
+                return winnerList;
             }
 
 
             catch (Exception ex)
             {
-                // Handles exceptions that might happen during file reading
                 Console.WriteLine($"Error loading leaderboard: {ex.Message}");
                 Thread.Sleep(1000);
-                return new List<playerInformation>(); // Return an empty list in case of an error
+                return new List<playerInformation>();
             }
             finally
             {
-                reader.Close(); // Ensure the reader is closed
+                reader.Close();
 
             }
 
 
         }
-
-        // AutoSaveLeaderBoard function: Saves the Leaderboard to a file before the program exits
         static void AutoSaveLeaderBoard(List<playerInformation> winnerList)
         {
             string fileName = "leaderboard";
@@ -478,7 +443,6 @@ namespace Assignment_4
             {
                 writer = new StreamWriter($"../../../{fileName}.csv", true);
 
-                // If the leaderboard is empty, informs the user and returns
                 if (winnerList.Count == 0)
                 {
                     Console.WriteLine("The LeaderBoard is empty");
@@ -486,7 +450,6 @@ namespace Assignment_4
                     return;
                 }
                 else
-                // Writes each winner's data to a new line in the file
                 {
                     foreach (playerInformation player in winnerList)
                     {
@@ -500,22 +463,19 @@ namespace Assignment_4
             }
             catch (Exception ex)
             {
-                // Handle exceptions that might occur during file writing
                 Console.WriteLine($"Error saving leaderboard: {ex.Message}");
                 Thread.Sleep(1000);
             }
             finally
             {
-                writer.Close(); // Ensure the writer is closed
+                writer.Close();
             }
         }
-
-        // Quit function: Handles the program's exit sequence
         static void Quit(List<playerInformation> winnerList)
         {
             Console.WriteLine("Saving leaderboard before exiting");
             Thread.Sleep(1000);
-            AutoSaveLeaderBoard(winnerList); // Save the leaderboard before quitting
+            AutoSaveLeaderBoard(winnerList);
 
         }
     }

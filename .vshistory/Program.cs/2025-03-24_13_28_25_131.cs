@@ -16,11 +16,7 @@ namespace Assignment_4
         * Relationship:    colleague
         * Date:            2025-03-24
         *
-        * Description: The goal of this program is to manage a leaderboard. 
-        * It allows users to add new winners, delete existing entries, save the leaderboard data to a file, 
-        * load data from a file, clear the leaderboard, and quit the application. The program 
-        * stores player information such as name, score, ending time, sport, and age. It also 
-        * automatically loads and saves the leaderboard upon starting and exiting.
+        * Description: The goal of this program is to do the * following… 
         */
 
         // Structure to store winners information
@@ -510,7 +506,7 @@ namespace Assignment_4
             }
         }
 
-        // Quit function: Handles the program's exit sequence
+        AutoSaveLeaderBoard function: Saves the Leaderboard to a file before the program exits
         static void Quit(List<playerInformation> winnerList)
         {
             Console.WriteLine("Saving leaderboard before exiting");
