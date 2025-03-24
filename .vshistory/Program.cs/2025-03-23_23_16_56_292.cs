@@ -86,7 +86,7 @@ namespace Assignment_4
             int userInput;
             while (!int.TryParse(Console.ReadLine(), out userInput) || userInput < minValue)
             {
-                Console.WriteLine("Please input a positive number");
+                Console.WriteLine("Please input a nu");
             }
             return userInput;
         }
@@ -218,7 +218,6 @@ namespace Assignment_4
         }
         static void SavingLeaderBoard(List<playerInformation> winnerList)
         {
-            DisplayLeaderBoard(winnerList);
             Console.WriteLine("please enter the file name you wish to save");
             string fileName = Console.ReadLine();
             StreamWriter writer = null;
@@ -289,7 +288,6 @@ namespace Assignment_4
                         }
                     }
                     Console.WriteLine($"Leaderboard loaded from {fileName}!");
-                    DisplayLeaderBoard(winnerList);
                 }
 
 
@@ -327,10 +325,10 @@ namespace Assignment_4
                     }
                     else
                     {
-                        
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
-                        
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
 
                 }
@@ -345,7 +343,6 @@ namespace Assignment_4
             {
                 winnerList.Clear();
                 Console.WriteLine("Leaderboard has been cleared successfully!");
-                DisplayLeaderBoard(winnerList);
             }
             else
             {

@@ -48,7 +48,6 @@ namespace Assignment_4
                         break;
 
                     case 4:
-                        LoadingLeaderBoard(winnerList);
                         break;
 
                     case 5:
@@ -59,10 +58,9 @@ namespace Assignment_4
                         Quit(winnerList);
                         quitProgram = true;
                         break;
-                } 
-                
-            } while (!quitProgram);
-            Console.ReadKey();
+                } while (quitProgram) ;
+                Console.ReadKey();
+            }
             static void PrintHeaderAndMenu()
             {
                 Console.WriteLine("      ************************************");
@@ -86,14 +84,13 @@ namespace Assignment_4
             int userInput;
             while (!int.TryParse(Console.ReadLine(), out userInput) || userInput < minValue)
             {
-                Console.WriteLine("Please input a positive number");
+                Console.WriteLine("Please input");
             }
             return userInput;
         }
         static string ValideInput()
         {
             string userInput;
-
             do
             {
                 userInput = Console.ReadLine();
@@ -103,26 +100,6 @@ namespace Assignment_4
                 }
             } while (Regex.IsMatch(userInput, @"\d"));
             return userInput;
-        }
-        static DateTime ValideInput(string format)
-        {
-            DateTime userInput;
-            bool isValid = false;
-            do
-            {
-                
-                string input = Console.ReadLine();
-                if (DateTime.TryParse(input, out userInput))
-                    {
-                    isValid = true;
-                }
-                else
-                {
-                    Console.WriteLine($"Invalid format. Please use the format: {format}");
-                }
-            } while (!isValid);
-            return userInput;
-            
         }
 
 
@@ -139,8 +116,8 @@ namespace Assignment_4
             newWinner.playerAge = ValideInput(minAge);
             Console.WriteLine("Enter the score of the winner");
             newWinner.playerScore = ValideInput(minScore);
-            Console.WriteLine("Enter the time ending of the winner [yyyy-MM-dd HH:mm:ss]");
-            newWinner.endingTime = ValideInput("[yyyy-MM-dd HH:mm:ss]");
+            Console.WriteLine("Enter the time ending of the winner");
+            newWinner.endingTime = DateTime.Parse(ValideInput());
             Console.WriteLine("Enter the sport of the winner");
             // fix bug
             newWinner.sport = ValideInput();
@@ -218,13 +195,12 @@ namespace Assignment_4
         }
         static void SavingLeaderBoard(List<playerInformation> winnerList)
         {
-            DisplayLeaderBoard(winnerList);
             Console.WriteLine("please enter the file name you wish to save");
             string fileName = Console.ReadLine();
             StreamWriter writer = null;
             try
             {
-                writer = new StreamWriter($"../../../{fileName}.csv", true);
+                writer = new StreamWriter(fileName, true);
 
                 if (winnerList.Count == 0)
                 {
@@ -258,7 +234,7 @@ namespace Assignment_4
 
             Console.WriteLine("please enter the file name you wish to load");
             string fileName = Console.ReadLine();
-            if (!File.Exists($"../../../{fileName}.csv"))
+            if (!File.Exists(fileName))
             {
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
@@ -269,7 +245,7 @@ namespace Assignment_4
                 StreamReader reader = null;
                 try
                 {
-                    reader = new StreamReader($"../../../{fileName}.csv", true);
+                    reader = new StreamReader(fileName, true);
                     ClearLeaderBoard(winnerList);
                     while (!reader.EndOfStream)
                     {
@@ -289,7 +265,6 @@ namespace Assignment_4
                         }
                     }
                     Console.WriteLine($"Leaderboard loaded from {fileName}!");
-                    DisplayLeaderBoard(winnerList);
                 }
 
 
@@ -327,10 +302,10 @@ namespace Assignment_4
                     }
                     else
                     {
-                        
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
-                        
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
 
                 }
@@ -345,7 +320,6 @@ namespace Assignment_4
             {
                 winnerList.Clear();
                 Console.WriteLine("Leaderboard has been cleared successfully!");
-                DisplayLeaderBoard(winnerList);
             }
             else
             {
@@ -355,7 +329,7 @@ namespace Assignment_4
         static List<playerInformation> AutoLoadLeaderBoard()
         {
             string fileName = "leaderboard.csv";
-            if (!File.Exists($"../../../{fileName}.csv"))
+            if (!File.Exists(fileName))
             {
                 Console.WriteLine("No previous leaderboard found. Starting fresh.");
                 return new List<playerInformation>();
@@ -365,7 +339,7 @@ namespace Assignment_4
             {
                 List<playerInformation> winnerList = new List<playerInformation>();
 
-                reader = new StreamReader($"../../../{fileName}.csv", true);
+                reader = new StreamReader(fileName, true);
 
                 while (!reader.EndOfStream)
                 {
@@ -408,7 +382,7 @@ namespace Assignment_4
             StreamWriter writer = null;
             try
             {
-                writer = new StreamWriter($"../../../{fileName}.csv" , true);
+                writer = new StreamWriter(fileName, true);
 
                 if (winnerList.Count == 0)
                 {

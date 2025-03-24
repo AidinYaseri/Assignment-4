@@ -327,10 +327,10 @@ namespace Assignment_4
                     }
                     else
                     {
-                        
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                         rank++;
-                        
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
 
                 }
@@ -345,7 +345,6 @@ namespace Assignment_4
             {
                 winnerList.Clear();
                 Console.WriteLine("Leaderboard has been cleared successfully!");
-                DisplayLeaderBoard(winnerList);
             }
             else
             {
