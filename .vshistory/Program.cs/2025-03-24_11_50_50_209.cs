@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -69,25 +68,25 @@ namespace Assignment_4
                 }
 
             } while (!quitProgram);
-            Console.ReadKey();// Keeps the console window open until a key is pressed   
-        }
+            Console.ReadKey();// Keeps the console window open until a key is pressed
 
-        // PrintHeaderAndMenu function: Displays the program's title and menu options to the user
-        static void PrintHeaderAndMenu()
-        {
-            Console.WriteLine("      ************************************");
-            Console.WriteLine("Welcome to Programming 2 - Assignment 4 – Winter 2025");
-            Console.WriteLine("Created by Aidin Yaseri (2467917) on 2025-03-19");
-            Console.WriteLine("      ************************************");
-            Console.WriteLine();
-            Console.WriteLine("Select one of the options below:");
-            Console.WriteLine();
-            Console.WriteLine("1. Add a winner to the leaderboard");
-            Console.WriteLine("2. Delete an entry from the leaderboard");
-            Console.WriteLine("3. Save the leaderboard to a file");
-            Console.WriteLine("4. Load the leaderboard from a file");
-            Console.WriteLine("5. Clear the leaderboard");
-            Console.WriteLine("6. Quit");
+            // PrintHeaderAndMenu function: Displays the program's title and menu options to the user
+            static void PrintHeaderAndMenu()
+            {
+                Console.WriteLine("      ************************************");
+                Console.WriteLine("Welcome to Programming 2 - Assignment 4 – Winter 2025");
+                Console.WriteLine("Created by Aidin Yaseri (2467917) on 2025-03-19");
+                Console.WriteLine("      ************************************");
+                Console.WriteLine();
+                Console.WriteLine("Select one of the options below:");
+                Console.WriteLine();
+                Console.WriteLine("1. Add a winner to the leaderboard");
+                Console.WriteLine("2. Delete an entry from the leaderboard");
+                Console.WriteLine("3. Save the leaderboard to a file");
+                Console.WriteLine("4. Load the leaderboard from a file");
+                Console.WriteLine("5. Clear the leaderboard");
+                Console.WriteLine("6. Quit");
+            }
         }
 
         // ValideInput function: Gets and validates integer input from the user
@@ -104,6 +103,8 @@ namespace Assignment_4
 
         // ValideInput function: Gets and validates string input from the user
         static string ValideInput()
+
+
         {
             string userInput;
             // Loops until valid string input is provided
@@ -117,13 +118,10 @@ namespace Assignment_4
             } while (Regex.IsMatch(userInput, @"\d"));
             return userInput;
         }
-
-        // ValideInput function: Gets and validates DateTime input from the user
         static DateTime ValideInput(string format)
         {
             DateTime userInput;
             bool isValid = false;
-            // Loops until valid DateTime input is provided
             do
             {
 
@@ -141,7 +139,7 @@ namespace Assignment_4
 
         }
 
-        // AddWinner function: Collects Winner's information and adds a new winner to the leaderboard
+
         static void AddWinner(List<playerInformation> winnerList)
         {
             int minScore = 0;
@@ -150,19 +148,20 @@ namespace Assignment_4
 
             Console.WriteLine("**Add Player**");
             Console.WriteLine("Enter the name of the winner:");
-            newWinner.playerName = ValideInput(); // Gets and validates player name
+            newWinner.playerName = ValideInput();
             Console.WriteLine("Enter the age of the winner");
-            newWinner.playerAge = ValideInput(minAge); // Gets and validates player age
+            newWinner.playerAge = ValideInput(minAge);
             Console.WriteLine("Enter the score of the winner");
-            newWinner.playerScore = ValideInput(minScore); // Gets and validates player score
+            newWinner.playerScore = ValideInput(minScore);
             Console.WriteLine("Enter the time ending of the winner [yyyy-MM-dd HH:mm:ss]");
-            newWinner.endingTime = ValideInput("[yyyy-MM-dd HH:mm:ss]"); // Gets and validates the ending time
+            newWinner.endingTime = ValideInput("[yyyy-MM-dd HH:mm:ss]");
             Console.WriteLine("Enter the sport of the winner");
-            newWinner.sport = ValideInput(); // Gets and validates the sport
-            InsertWinner(winnerList, newWinner); // Inserts the new winner into the leaderboard list
+            // fix bug
+            newWinner.sport = ValideInput();
+            InsertWinner(winnerList, newWinner);
             Console.WriteLine("Winner Successfully added");
-            DisplayLeaderBoard(winnerList);// Displays the updated leaderboard
-            Thread.Sleep(1000); // Pauses to show the message.
+            DisplayLeaderBoard(winnerList);
+            Thread.Sleep(1000);
         }
         static void InsertWinner(List<playerInformation> winnerList, playerInformation newWinner)
         {

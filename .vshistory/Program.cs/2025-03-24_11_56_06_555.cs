@@ -161,8 +161,8 @@ namespace Assignment_4
             newWinner.sport = ValideInput(); // Gets and validates the sport
             InsertWinner(winnerList, newWinner); // Inserts the new winner into the leaderboard list
             Console.WriteLine("Winner Successfully added");
-            DisplayLeaderBoard(winnerList);// Displays the updated leaderboard
-            Thread.Sleep(1000); // Pauses to show the message.
+            DisplayLeaderBoard(winnerList);
+            Thread.Sleep(1000);
         }
         static void InsertWinner(List<playerInformation> winnerList, playerInformation newWinner)
         {

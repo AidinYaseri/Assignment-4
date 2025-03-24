@@ -150,19 +150,20 @@ namespace Assignment_4
 
             Console.WriteLine("**Add Player**");
             Console.WriteLine("Enter the name of the winner:");
-            newWinner.playerName = ValideInput(); // Gets and validates player name
+            newWinner.playerName = ValideInput();
             Console.WriteLine("Enter the age of the winner");
-            newWinner.playerAge = ValideInput(minAge); // Gets and validates player age
+            newWinner.playerAge = ValideInput(minAge);
             Console.WriteLine("Enter the score of the winner");
-            newWinner.playerScore = ValideInput(minScore); // Gets and validates player score
+            newWinner.playerScore = ValideInput(minScore);
             Console.WriteLine("Enter the time ending of the winner [yyyy-MM-dd HH:mm:ss]");
-            newWinner.endingTime = ValideInput("[yyyy-MM-dd HH:mm:ss]"); // Gets and validates the ending time
+            newWinner.endingTime = ValideInput("[yyyy-MM-dd HH:mm:ss]");
             Console.WriteLine("Enter the sport of the winner");
-            newWinner.sport = ValideInput(); // Gets and validates the sport
-            InsertWinner(winnerList, newWinner); // Inserts the new winner into the leaderboard list
+            // fix bug
+            newWinner.sport = ValideInput();
+            InsertWinner(winnerList, newWinner);
             Console.WriteLine("Winner Successfully added");
-            DisplayLeaderBoard(winnerList);// Displays the updated leaderboard
-            Thread.Sleep(1000); // Pauses to show the message.
+            DisplayLeaderBoard(winnerList);
+            Thread.Sleep(1000);
         }
         static void InsertWinner(List<playerInformation> winnerList, playerInformation newWinner)
         {
