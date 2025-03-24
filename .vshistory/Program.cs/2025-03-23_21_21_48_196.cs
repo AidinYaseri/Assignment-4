@@ -205,23 +205,8 @@ namespace Assignment_4
                 int rank = 1;
                 foreach ( playerInformation winner in winnerList)
                 {
-                    if (rank == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
-                        rank++;
-                        Console.ForegroundColor= ConsoleColor.White;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
-                        rank++;
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-
+                    Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
                 }
-                Console.WriteLine("===============================================================");
             }
         }
     }

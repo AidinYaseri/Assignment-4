@@ -188,41 +188,7 @@ namespace Assignment_4
         }
         static void SavingLeaderBoard()
         {
-           // StreamWriter writer = new StreamWriter ()
-        }
-        static void DisplayLeaderBoard(List<playerInformation> winnerList)
-            {
-            if (winnerList.Count == 0)
-            {
-                Console.WriteLine("The LeaderBoard is empty");
-                return;
-            }
-            else
-            {
-                Console.WriteLine("===============================================================");
-                Console.WriteLine("|  RANK  |  NAME  |  SCORE  |  AGE  |  SPORT  |  ENDING TIME  |");
-                Console.WriteLine("===============================================================");
-                int rank = 1;
-                foreach ( playerInformation winner in winnerList)
-                {
-                    if (rank == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
-                        rank++;
-                        Console.ForegroundColor= ConsoleColor.White;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
-                        rank++;
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-
-                }
-                Console.WriteLine("===============================================================");
-            }
+            StreamWriter writer = new StreamWriter ()
         }
     }
 }
