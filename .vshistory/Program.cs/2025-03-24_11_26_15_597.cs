@@ -279,17 +279,18 @@ namespace Assignment_4
                         string line = reader.ReadLine();
                         string[] parts = line.Split(',');
 
+                        if (parts.Length == 5)
+                        {
+                            playerInformation newWinner;
+                            newWinner.playerName = parts[0];
+                            newWinner.playerScore = int.Parse(parts[1]);
+                            newWinner.playerAge = int.Parse(parts[2]);
+                            newWinner.sport = parts[3];
+                            newWinner.endingTime = DateTime.Parse(parts[4]);
 
-                        playerInformation newWinner;
-                        newWinner.playerName = parts[0];
-                        newWinner.playerScore = int.Parse(parts[1]);
-                        newWinner.playerAge = int.Parse(parts[2]);
-                        newWinner.sport = parts[3];
-                        newWinner.endingTime = DateTime.Parse(parts[4]);
-
-                        Console.WriteLine(newWinner);
-                        winnerList.Add(newWinner);
-
+                            Console.WriteLine(newWinner);
+                            winnerList.Add(newWinner);
+                        }
                     }
 
                     Console.WriteLine($"Leaderboard loaded from {fileName}!");
@@ -380,17 +381,18 @@ namespace Assignment_4
                 {
                     string line = reader.ReadLine();
                     string[] parts = line.Split(',');
+                    if (parts.Length == 5)
+                    {
+                        playerInformation newWinner;
+                        newWinner.playerName = parts[0];
+                        newWinner.playerScore = int.Parse(parts[1]);
+                        newWinner.playerAge = int.Parse(parts[2]);
+                        newWinner.sport = parts[3];
+                        newWinner.endingTime = DateTime.Parse(parts[4]);
+                        winnerList.Add(newWinner);
 
-                    playerInformation newWinner;
-                    newWinner.playerName = parts[0];
-                    newWinner.playerScore = int.Parse(parts[1]);
-                    newWinner.playerAge = int.Parse(parts[2]);
-                    newWinner.sport = parts[3];
-                    newWinner.endingTime = DateTime.Parse(parts[4]);
-                    winnerList.Add(newWinner);
 
-
-
+                    }
                 }
                 Console.WriteLine($"Leaderboard loaded from {fileName}!");
                 Thread.Sleep(1000);
