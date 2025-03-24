@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Assignment_4
 {
@@ -40,14 +39,12 @@ namespace Assignment_4
                     break;
 
                 case 3:
-                    SavingLeaderBoard(winnerList);
                     break;
 
                 case 4:
                     break;
 
                 case 5:
-                    ClearLeaderBoard(winnerList);
                     break;
 
                 case 6:
@@ -192,73 +189,29 @@ namespace Assignment_4
         {
             Console.WriteLine("please enter the file name you wish to save");
             string fileName = Console.ReadLine();
-            StreamWriter writer = null;
-            try
-            {
-                writer = new StreamWriter(fileName, true);
+            StreamWriter writer = new StreamWriter(fileName, true);
+            writer.WriteLine($"LeaderBoard Saved of {DateTime.Now}");
 
-                if (winnerList.Count == 0)
-                {
-                    Console.WriteLine("The LeaderBoard is empty");
-                    return;
-                }
-                else
-                {
-                    foreach (playerInformation player in winnerList)
-                    {
-                        string formattedDate = player.endingTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
-                        writer.WriteLine($"{player.playerName},{player.playerScore},{player.playerAge}, {player.sport},{formattedDate},");
-                    }
-                }
-
-                Console.WriteLine($"Leaderboard saved successfully to {fileName}!");
-                Thread.Sleep(1000);
-            }
-            catch (Exception ex)
+            if (winnerList.Count == 0)
             {
-                Console.WriteLine($"ERROR: {ex.Message}");
-            }
-            finally
-            {
-                writer.Close();
-            }
-        }
-
-        static void LoadingLeaderBoard(List<playerInformation> winnerList)
-        {
-
-            Console.WriteLine("please enter the file name you wish to load");
-            string fileName = Console.ReadLine();
-            if (!File.Exists(fileName))
-            {
-                Console.WriteLine("File not found");
-                Thread.Sleep(1000);
+                Console.WriteLine("The LeaderBoard is empty");
                 return;
             }
             else
             {
-                StreamReader reader = null;
-                try
+                writer.WriteLine("===============================================================");
+                writer.WriteLine("|  RANK  |  NAME  |  SCORE  |  AGE  |  SPORT  |  ENDING TIME  |");
+                writer.WriteLine("===============================================================");
+                int rank = 1;
+                foreach (playerInformation winner in winnerList)
                 {
-                    reader = new StreamReader(fileName, true);
-
-                    while (!reader.EndOfStream)
-                    {
-                        string line = reader.ReadLine();
-                        string[] parts = line.Split(',');
-                        if (parts.Length == 5)
-                        {
-                            string playerName = parts[0];
-                            int playerScore = int.Parse(parts[1]);
-                            int playerAge = int.Parse(parts[2]);
-                            string sport = parts[3];
-                            DateTime endingTime = DateTime.Parse(parts[4]);
-
-                            winnerList.Add(new playerInformation(playerName, playerScore, playerAge, sport, endingTime));
-                        }
-                    }
+                    writer.WriteLine($"|  {rank}  |  {winner.playerName}  |  {winner.playerScore}  |  {winner.playerAge}  |  {winner.sport}  |  {winner.endingTime}  |");
+                    rank++;
                 }
+                writer.WriteLine("===============================================================");
             }
+            Console.WriteLine($"Leaderboard saved successfully to {fileName}!");
+            Thread.Sleep(1000);
         }
         static void DisplayLeaderBoard(List<playerInformation> winnerList)
         {
@@ -292,20 +245,6 @@ namespace Assignment_4
 
                 }
                 Console.WriteLine("===============================================================");
-            }
-        }
-        static void ClearLeaderBoard(List<playerInformation> winnerList)
-        {
-            Console.WriteLine("Are you sure you want to clear the leaderboard? [y/n]");
-            string input = ValideInput().ToLower();
-            if (input == "y")
-            {
-                winnerList.Clear();
-                Console.WriteLine("Leaderboard has been cleared successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Leaderboard clearing canceled.");
             }
         }
     }

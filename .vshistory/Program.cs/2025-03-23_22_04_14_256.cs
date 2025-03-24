@@ -47,7 +47,6 @@ namespace Assignment_4
                     break;
 
                 case 5:
-                    ClearLeaderBoard(winnerList);
                     break;
 
                 case 6:
@@ -294,19 +293,6 @@ namespace Assignment_4
                 Console.WriteLine("===============================================================");
             }
         }
-        static void ClearLeaderBoard(List<playerInformation> winnerList)
-        {
-            Console.WriteLine("Are you sure you want to clear the leaderboard? [y/n]");
-            string input = ValideInput().ToLower();
-            if (input == "y")
-            {
-                winnerList.Clear();
-                Console.WriteLine("Leaderboard has been cleared successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Leaderboard clearing canceled.");
-            }
-        }
+        static void ClearLeaderBoard()
     }
 }

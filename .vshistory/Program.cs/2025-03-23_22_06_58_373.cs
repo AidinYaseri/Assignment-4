@@ -302,10 +302,10 @@ namespace Assignment_4
             {
                 winnerList.Clear();
                 Console.WriteLine("Leaderboard has been cleared successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Leaderboard clearing canceled.");
+                else
+                {
+                    Console.WriteLine("Leaderboard clearing canceled.");
+                }
             }
         }
     }

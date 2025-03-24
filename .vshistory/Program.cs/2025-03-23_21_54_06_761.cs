@@ -47,7 +47,6 @@ namespace Assignment_4
                     break;
 
                 case 5:
-                    ClearLeaderBoard(winnerList);
                     break;
 
                 case 6:
@@ -225,8 +224,8 @@ namespace Assignment_4
         }
 
         static void LoadingLeaderBoard(List<playerInformation> winnerList)
-        {
-
+        {   
+            
             Console.WriteLine("please enter the file name you wish to load");
             string fileName = Console.ReadLine();
             if (!File.Exists(fileName))
@@ -242,20 +241,10 @@ namespace Assignment_4
                 {
                     reader = new StreamReader(fileName, true);
 
-                    while (!reader.EndOfStream)
+                    while(!reader.EndOfStream)
                     {
                         string line = reader.ReadLine();
-                        string[] parts = line.Split(',');
-                        if (parts.Length == 5)
-                        {
-                            string playerName = parts[0];
-                            int playerScore = int.Parse(parts[1]);
-                            int playerAge = int.Parse(parts[2]);
-                            string sport = parts[3];
-                            DateTime endingTime = DateTime.Parse(parts[4]);
 
-                            winnerList.Add(new playerInformation(playerName, playerScore, playerAge, sport, endingTime));
-                        }
                     }
                 }
             }
@@ -292,20 +281,6 @@ namespace Assignment_4
 
                 }
                 Console.WriteLine("===============================================================");
-            }
-        }
-        static void ClearLeaderBoard(List<playerInformation> winnerList)
-        {
-            Console.WriteLine("Are you sure you want to clear the leaderboard? [y/n]");
-            string input = ValideInput().ToLower();
-            if (input == "y")
-            {
-                winnerList.Clear();
-                Console.WriteLine("Leaderboard has been cleared successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Leaderboard clearing canceled.");
             }
         }
     }

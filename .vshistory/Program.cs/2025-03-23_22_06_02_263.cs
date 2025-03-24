@@ -47,7 +47,6 @@ namespace Assignment_4
                     break;
 
                 case 5:
-                    ClearLeaderBoard(winnerList);
                     break;
 
                 case 6:
@@ -301,11 +300,7 @@ namespace Assignment_4
             if (input == "y")
             {
                 winnerList.Clear();
-                Console.WriteLine("Leaderboard has been cleared successfully!");
-            }
-            else
-            {
-                Console.WriteLine("Leaderboard clearing canceled.");
+                Console.WriteLine();
             }
         }
     }
