@@ -310,9 +310,9 @@ namespace Assignment_4
             string fileName = ValideInput();// Gets the filename from the user
 
             // Checks if the specified file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"repo/{fileName}.csv", true))
             {
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"File path: ../../../{fileName}.csv");
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
                 return;
@@ -437,7 +437,7 @@ namespace Assignment_4
         {
             string fileName = "leaderboard";
             // Checks if the leaderboard file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"repo/{fileName}.csv", true))
             {
                 Console.WriteLine("No previous leaderboard found. Starting fresh.");
                 Thread.Sleep(1000);
@@ -498,11 +498,12 @@ namespace Assignment_4
                 
               
 
-                    File.Delete($"repo/{fileName}.csv");
-                    File.Create($"repo/{fileName}.csv").Close();
+                    File.Delete($"../../../{fileName}.csv");
+                    File.Create($"../../../{fileName}.csv").Close();
 
+                
+                writer = new StreamWriter($"../../../{fileName}.csv", true);
 
-                writer = new StreamWriter($"repo/{fileName}.csv", true);
                 // Writes each winner's data to a new line in the file
 
                 foreach (playerInformation player in winnerList)

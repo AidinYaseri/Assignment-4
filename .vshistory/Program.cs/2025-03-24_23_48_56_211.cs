@@ -312,7 +312,7 @@ namespace Assignment_4
             // Checks if the specified file exists
             if (!File.Exists($"repo/{fileName}.csv"))
             {
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"File path: {Path.GetFullPath($"repo /{ fileName}.csv");
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
                 return;

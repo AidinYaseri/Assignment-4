@@ -285,8 +285,9 @@ namespace Assignment_4
                     }
                 }
 
-                Console.WriteLine("The folder is located at:");
-                Console.WriteLine( Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"Leaderboard saved successfully to {fileName}!");
+                Console.WriteLine("The folder is located in the root folder of the program");
+                Path.GetFullPath()x
                 Console.ReadKey();
             }
             catch (Exception ex)
@@ -310,9 +311,9 @@ namespace Assignment_4
             string fileName = ValideInput();// Gets the filename from the user
 
             // Checks if the specified file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"../../../{fileName}.csv"))
             {
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"File path: ../../../{fileName}.csv");
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
                 return;
@@ -325,7 +326,7 @@ namespace Assignment_4
                     ClearLeaderBoard(winnerList);
                     
                     // Creates a StreamReader to read from the specified file
-                    reader = new StreamReader($"repo/{fileName}.csv", true);
+                    reader = new StreamReader($"../../../{fileName}.csv", true);
                     if (winnerList.Count != 0)
                     {
                         reader.Close();
@@ -349,8 +350,7 @@ namespace Assignment_4
 
                     }
 
-                    Console.WriteLine($"Leaderboard loaded from:");
-                    Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                    Console.WriteLine($"Leaderboard loaded from {fileName}!");
                     Thread.Sleep(1000);
                     DisplayLeaderBoard(winnerList);// Displays the loaded leaderboard
                     Console.WriteLine("Press a key to continue");
@@ -437,7 +437,7 @@ namespace Assignment_4
         {
             string fileName = "leaderboard";
             // Checks if the leaderboard file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"../../../{fileName}.csv"))
             {
                 Console.WriteLine("No previous leaderboard found. Starting fresh.");
                 Thread.Sleep(1000);
@@ -448,7 +448,7 @@ namespace Assignment_4
             {
                 List<playerInformation> winnerList = new List<playerInformation>();
 
-                reader = new StreamReader($"repo/{fileName}.csv", true);
+                reader = new StreamReader($"../../../{fileName}.csv", true);
                 // Read the file line by line
                 while (!reader.EndOfStream)
                 {
@@ -465,8 +465,7 @@ namespace Assignment_4
                     InsertWinner(winnerList, newWinner);// Adds the winner to the list
 
                 }
-                Console.WriteLine($"Leaderboard loaded from:");
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"Leaderboard loaded from {fileName}!");
                 Thread.Sleep(1000);
                 return winnerList; // Returns the populated list
             }
@@ -498,11 +497,12 @@ namespace Assignment_4
                 
               
 
-                    File.Delete($"repo/{fileName}.csv");
-                    File.Create($"repo/{fileName}.csv").Close();
+                    File.Delete($"../../../{fileName}.csv");
+                    File.Create($"../../../{fileName}.csv").Close();
 
+                
+                writer = new StreamWriter($"../../../{fileName}.csv", true);
 
-                writer = new StreamWriter($"repo/{fileName}.csv", true);
                 // Writes each winner's data to a new line in the file
 
                 foreach (playerInformation player in winnerList)
@@ -511,8 +511,7 @@ namespace Assignment_4
                     writer.WriteLine($"{player.playerName},{player.playerScore},{player.playerAge}, {player.sport},{formattedDate},");
                 }
 
-                Console.WriteLine("The folder is located at:");
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"Leaderboard saved successfully to {fileName}!");
                 Thread.Sleep(1000);
             }
             catch (Exception ex)

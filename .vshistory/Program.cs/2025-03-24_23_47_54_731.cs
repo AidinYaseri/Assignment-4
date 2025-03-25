@@ -310,9 +310,9 @@ namespace Assignment_4
             string fileName = ValideInput();// Gets the filename from the user
 
             // Checks if the specified file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"repo/{fileName}.csv", true))
             {
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"File path: ../../../{fileName}.csv");
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
                 return;

@@ -42,7 +42,7 @@ namespace Assignment_4
             do
             {
                 Console.Clear();
-                PrintHeaderAndMenu(winnerList);  // Displays the program header and menu options.
+                PrintHeaderAndMenu();  // Displays the program header and menu options.
                 int userChoice = ValideInput(1); // Gets and validates user's menu choice
 
                 // Switch case to handle user's menu choice
@@ -79,9 +79,8 @@ namespace Assignment_4
         }
 
         // PrintHeaderAndMenu function: Displays the program's title and menu options to the user
-        static void PrintHeaderAndMenu(List<playerInformation> winnerList)
+        static void PrintHeaderAndMenu()
         {
-            DisplayLeaderBoard(winnerList);
             Console.WriteLine("      ************************************");
             Console.WriteLine("Welcome to Programming 2 - Assignment 4 – Winter 2025");
             Console.WriteLine("Created by Aidin Yaseri (2467917) on 2025-03-19");
@@ -117,11 +116,11 @@ namespace Assignment_4
             do
             {
                 userInput = Console.ReadLine();
-                if (Regex.IsMatch(userInput, @"\d") || userInput == "")
+                if (Regex.IsMatch(userInput, @"\d"))
                 {
-                    Console.WriteLine($"Make sure the input contains characters but no numbers ");
+                    Console.WriteLine($"Please enter no numbers");
                 }
-            } while (Regex.IsMatch(userInput, @"\d") || userInput == "");
+            } while (Regex.IsMatch(userInput, @"\d"));
             return userInput;
         }
 
@@ -135,13 +134,13 @@ namespace Assignment_4
             {
 
                 string input = Console.ReadLine();
-                if (DateTime.TryParse(input, out userInput) && userInput <= DateTime.Now)
+                if (DateTime.TryParse(input, out userInput))
                 {
                     isValid = true;
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid date. Please use the format: {format}");
+                    Console.WriteLine($"Invalid format. Please use the format: {format}");
                 }
             } while (!isValid);
             return userInput;
@@ -152,7 +151,7 @@ namespace Assignment_4
         static void AddWinner(List<playerInformation> winnerList)
         {
             int minScore = 0;
-            int minAge = 1;
+            int minAge = 0;
             playerInformation newWinner = new playerInformation();
 
             Console.WriteLine("**Add Player**");
@@ -169,8 +168,7 @@ namespace Assignment_4
             InsertWinner(winnerList, newWinner); // Inserts the new winner into the leaderboard list
             Console.WriteLine("Winner Successfully added");
             DisplayLeaderBoard(winnerList);// Displays the updated leaderboard
-            Console.WriteLine("Press a key to continue");
-            Console.ReadKey();
+            Thread.Sleep(1000); // Pauses to show the message.
         }
 
         // InsertWinner function: Inserts a new winner into the correct position in the leaderboard based on their score
@@ -234,16 +232,14 @@ namespace Assignment_4
                         winnerList.RemoveAt(playerIndex);
                         Console.WriteLine("Winner seccessfully deleted!");
                         DisplayLeaderBoard(winnerList);
-                        Console.WriteLine("Press a key to continue");
-                        Console.ReadKey();
+                        Thread.Sleep(1000);
 
                     }
                     else
                     {
                         Console.WriteLine("Winner deleting cancelled");
                         DisplayLeaderBoard(winnerList);
-                        Console.WriteLine("Press a key to continue");
-                        Console.ReadKey();
+                        Thread.Sleep(1000);
                     }
                     return;
 
@@ -257,15 +253,13 @@ namespace Assignment_4
         static void SavingLeaderBoard(List<playerInformation> winnerList)
         {
             DisplayLeaderBoard(winnerList);// Displays the leaderboard before saving
-            Console.WriteLine("Press a key to continue");
-            Console.ReadKey();
             Console.WriteLine("please enter the file name you wish to save (do not include file extension)");
-            string fileName = ValideInput(); // Gets the filename from the user
+            string fileName = Console.ReadLine(); // Gets the filename from the user
             StreamWriter writer = null;
             try
             {
                 // Creates a StreamWriter to write to the specified file
-                writer = new StreamWriter($"repo/{fileName}.csv", true);
+                writer = new StreamWriter($"../../../{fileName}.csv", true);
 
                 // Handles the case where the leaderboard is empty
                 if (winnerList.Count == 0)
@@ -285,9 +279,8 @@ namespace Assignment_4
                     }
                 }
 
-                Console.WriteLine("The folder is located at:");
-                Console.WriteLine( Path.GetFullPath($"repo/{fileName}.csv"));
-                Console.ReadKey();
+                Console.WriteLine($"Leaderboard saved successfully to {fileName}!");
+                Thread.Sleep(1000);
             }
             catch (Exception ex)
             {
@@ -307,12 +300,12 @@ namespace Assignment_4
         static void LoadingLeaderBoard(List<playerInformation> winnerList)
         {
             Console.WriteLine("Please enter the file name you wish to load (do not include file extension):");
-            string fileName = ValideInput();// Gets the filename from the user
+            string fileName = Console.ReadLine();// Gets the filename from the user
 
             // Checks if the specified file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"../../../{fileName}.csv"))
             {
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"File path: ../../../{fileName}.csv");
                 Console.WriteLine("File not found");
                 Thread.Sleep(1000);
                 return;
@@ -322,15 +315,8 @@ namespace Assignment_4
                 StreamReader reader = null;
                 try
                 {
-                    ClearLeaderBoard(winnerList);
-                    
                     // Creates a StreamReader to read from the specified file
-                    reader = new StreamReader($"repo/{fileName}.csv", true);
-                    if (winnerList.Count != 0)
-                    {
-                        reader.Close();
-                        return;
-                    }
+                    reader = new StreamReader($"../../../{fileName}.csv", true);
                     // Reads the file line by line until the end
                     while (!reader.EndOfStream)
                     {
@@ -349,12 +335,10 @@ namespace Assignment_4
 
                     }
 
-                    Console.WriteLine($"Leaderboard loaded from:");
-                    Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                    Console.WriteLine($"Leaderboard loaded from {fileName}!");
                     Thread.Sleep(1000);
                     DisplayLeaderBoard(winnerList);// Displays the loaded leaderboard
-                    Console.WriteLine("Press a key to continue");
-                    Console.ReadKey();
+                    Thread.Sleep(1000);
                 }
                 catch (Exception ex)
                 {
@@ -422,8 +406,6 @@ namespace Assignment_4
                 Console.WriteLine("Leaderboard has been cleared successfully!");
                 Thread.Sleep(1000);
                 DisplayLeaderBoard(winnerList);
-                Console.WriteLine("Press a key to continue");
-                Console.ReadKey();
             }
             else
             {
@@ -437,7 +419,7 @@ namespace Assignment_4
         {
             string fileName = "leaderboard";
             // Checks if the leaderboard file exists
-            if (!File.Exists($"repo/{fileName}.csv"))
+            if (!File.Exists($"../../../{fileName}.csv"))
             {
                 Console.WriteLine("No previous leaderboard found. Starting fresh.");
                 Thread.Sleep(1000);
@@ -448,12 +430,11 @@ namespace Assignment_4
             {
                 List<playerInformation> winnerList = new List<playerInformation>();
 
-                reader = new StreamReader($"repo/{fileName}.csv", true);
+                reader = new StreamReader($"../../../{fileName}.csv", true);
                 // Read the file line by line
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
-                   
                     string[] parts = line.Split(',');// Splits the line by commas
                     // Creates a new new winner and fills it with data from the file
                     playerInformation newWinner;
@@ -462,11 +443,12 @@ namespace Assignment_4
                     newWinner.playerAge = int.Parse(parts[2]);
                     newWinner.sport = parts[3];
                     newWinner.endingTime = DateTime.Parse(parts[4]);
-                    InsertWinner(winnerList, newWinner);// Adds the winner to the list
+                    winnerList.Add(newWinner);// Adds the winner to the list
+
+
 
                 }
-                Console.WriteLine($"Leaderboard loaded from:");
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"Leaderboard loaded from {fileName}!");
                 Thread.Sleep(1000);
                 return winnerList; // Returns the populated list
             }
@@ -495,14 +477,9 @@ namespace Assignment_4
             StreamWriter writer = null;
             try
             {
-                
-              
-
-                    File.Delete($"repo/{fileName}.csv");
-                    File.Create($"repo/{fileName}.csv").Close();
+                writer = new StreamWriter($"../../../{fileName}.csv", true);
 
 
-                writer = new StreamWriter($"repo/{fileName}.csv", true);
                 // Writes each winner's data to a new line in the file
 
                 foreach (playerInformation player in winnerList)
@@ -511,8 +488,7 @@ namespace Assignment_4
                     writer.WriteLine($"{player.playerName},{player.playerScore},{player.playerAge}, {player.sport},{formattedDate},");
                 }
 
-                Console.WriteLine("The folder is located at:");
-                Console.WriteLine(Path.GetFullPath($"repo/{fileName}.csv"));
+                Console.WriteLine($"Leaderboard saved successfully to {fileName}!");
                 Thread.Sleep(1000);
             }
             catch (Exception ex)
