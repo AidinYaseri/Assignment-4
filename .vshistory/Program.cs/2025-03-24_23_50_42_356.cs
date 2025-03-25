@@ -12,8 +12,8 @@ namespace Assignment_4
         /*
         * Programming 2 - Assignment 4 – Winter 2025
         * Created by:      Aidin yaseri 2467917
-        * Tested by:       Omid Yaseri
-        * Relationship:    Father
+        * Tested by:       Makan homayoun
+        * Relationship:    colleague
         * Date:            2025-03-24
         *
         * Description: The goal of this program is to manage a leaderboard. 
